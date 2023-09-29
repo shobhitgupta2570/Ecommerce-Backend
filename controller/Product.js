@@ -26,15 +26,16 @@ exports.fetchAllProducts = async (req, res) => {
   // filter = {"category":["smartphone","laptops"]}
   // sort = {_sort:"price",_order="desc"}
   // pagination = {_page:1,_limit=10}
-  let condition = {}
-  if(!req.query.admin){
-      condition.deleted = {$ne:true}
-  }
+  // let condition = {}
+  // if(!req.query.admin){
+  //     condition.deleted = {$ne:true}
+  // }
   
-  let query = Product.find(condition);
-  let totalProductsQuery = Product.find(condition);
+  // let query = Product.find(condition);
+  // let totalProductsQuery = Product.find(condition);
 
-  console.log(req.query.category);
+  let query = Product.find({deleted: {$ne:true}});
+  let totalProductsQuery = Product.find({deleted: {$ne:true}});
 
   if (req.query.category) {
     query = query.find({ category: {$in:req.query.category.split(',')} });
