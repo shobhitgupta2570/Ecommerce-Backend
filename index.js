@@ -11,7 +11,6 @@ const jwt = require('jsonwebtoken');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const cookieParser = require('cookie-parser');
-
 const productsRouters = require('./routes/Products');
 const categoriesRouter = require('./routes/Categories');
 const brandsRouter = require('./routes/Brands');
@@ -23,7 +22,6 @@ const { User } = require('./model/User');
 const { sanitizeUser, isAuth, cookieExtractor } = require('./services/common');
 const path = require('path');
 const { Order } = require('./model/Order');
-
 // Webhook
 
 // TODO: WE WILL CAPTURE ACTUAL ORDER AFTER DEPLOYING OUT SERVER LIVE ON PUBLIC URL
@@ -91,8 +89,8 @@ server.use('/brands',isAuth(), brandsRouter.router);
 server.use('/users',isAuth(), usersRouter.router);
 server.use('/auth', authRouter.router);
 server.use('/cart',isAuth(), cartRouter.router);
-// this /orders is clashing with react /orders
 server.use('/orders',isAuth(), ordersRouter.router);
+
 // thisline we add to make react router work in case of other routes doesnt match
 server.get('*', (req,res) => res.sendFile(path.resolve('build', 'index.html')));
 
